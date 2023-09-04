@@ -12,28 +12,27 @@ import { URL_DATA } from "@/utils";
 import useStore from "@/utils/store";
 
 
-// const [fetchUsers] = useStore((state) => [state.fetchUsers]);
+// const [ fetchUsers] = useStore((state) => [
+//   state.fetchUsers
+// ]);
 
-const {
-  register,
-  handleSubmit,
-  reset,
-  formState: { errors, isSubmitting, isValid },
-} = useForm<Donation>({
-  resolver: zodResolver(formSchema),
-  mode: 'onTouched',
-});
+// const rhf = useForm<Donation>({
+//   resolver: zodResolver(formSchema),
+//   mode: "onTouched", 
+// });
 
-async function sendData(data: Donation) {
-  try {
-    const res = await axios.post(URL_DATA, data);
-    // fetchUsers();
-    reset();
-  } catch (err) {
-    console.log(err);
-  }
-}
+// const { register, handleSubmit, watch, reset, setValue, formState } = rhf;
+// const { errors, isSubmitting, isValid } = formState;
 
+// async function sendData(data: Donation) {
+//   try {
+//     const res = await axios.post(URL_DATA, data);
+//     fetchUsers();
+//     reset();
+//   } catch (err) {
+//     console.log(err);
+//   }
+// }
 
 export default function Form() {
 
@@ -46,52 +45,34 @@ export default function Form() {
         Donate
       </Title>
 
-      <form
-      // onSubmit={handleSubmit(sendData)}
-      >
+      <form>
         <Stack spacing={"xs"}>
-          <Input.Wrapper
-          >
+          <Input.Wrapper>
             <Input.Label>First Name</Input.Label>
-            <Input
-            {...register("firstName")} // ตอนแรกให้มาเป็น object
-            type="text"
-            id="firstName"
-            disabled={isSubmitting}/>
-            <ErrorMessage errors={errors} name="firstName" />
-            {errors.firstName?.message && errors.firstName?.message}
+            <Input />
+            <Input.Error>{/* Error goes here */}</Input.Error>
           </Input.Wrapper>
 
           <Input.Wrapper>
             <Input.Label>Last Name</Input.Label>
-            <Input {...register("lastName")}
-              type="text"
-              id="lastName"
-              disabled={isSubmitting}/>
-            <ErrorMessage errors={errors} name="lastName" />
+            <Input />
+            <Input.Error>{/* Error goes here */}</Input.Error>
           </Input.Wrapper>
 
           <Input.Wrapper>
             <Input.Label>Email</Input.Label>
-            <Input {...register("email")}
-              type="text"
-              id="email"
-              disabled={isSubmitting}/>
-            <ErrorMessage errors={errors} name="email" />
+            <Input />
+            <Input.Error>{/* Error goes here */}</Input.Error>
           </Input.Wrapper>
 
           <Input.Wrapper>
             <Input.Label>Donation Amount</Input.Label>
-            <Input {...register("amount")}
-              type="number"
-              id="amount"
-              disabled={isSubmitting}/>
-            <ErrorMessage errors={errors} name="amount" />
+            <Input />
+            <Input.Error>{/* Error goes here */}</Input.Error>
           </Input.Wrapper>
           <Button>Submit</Button>
         </Stack>
       </form>
-
     </Card>
     </div>
   );
