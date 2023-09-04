@@ -1,7 +1,12 @@
-// import { API_URL } from "../utils/api";
-// import { type Donation } from "@/utils/types";
+"use client"
+import { API_URL } from "../utils/api";
+import { type Donation } from "@/utils/types";
 import { Paper, Text, Stack, Group, Title, Card } from "@mantine/core";
 import dayjs from "dayjs";
+import { FC } from "react";
+import DonationList from "@/utils/displayData";
+import { useQuery } from "@tanstack/react-query";
+
 
 export default function Donation() {
   return (
