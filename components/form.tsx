@@ -10,6 +10,7 @@ import DonationList from "@/utils/displayData";
 import { type Donation } from "@/utils/types";
 import { URL_DATA } from "@/utils";
 import useStore from "@/utils/store";
+import * as z from "zod";
 
 
 // const [ fetchUsers] = useStore((state) => [
@@ -34,46 +35,78 @@ import useStore from "@/utils/store";
 //   }
 // }
 
+const {
+  register,
+  handleSubmit,
+  formState: { errors, isSubmitting, isValid },
+} = useForm<Donation>({
+  resolver: zodResolver(formSchema),
+  mode: "onTouched",
+});
+
+
+// const onSubmit = async (data) => {
+//   try {
+//     // You can validate the form data against the schema here if needed
+//     const validatedData = formSchema.parse(data);
+//     // Perform your Axios request or other actions
+//   } catch (err) {
+//     console.error(err);
+//   }
+// };
+
+const onSubmit = async (data: Donation) => {
+  try {
+    // You can validate the form data against the schema here if needed
+    const validatedData = formSchema.parse(data);
+    // Perform your Axios request or other actions
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 export default function Form() {
 
 
   
   return (
     <div id="form">
-    <Card withBorder shadow="xs" p="xl" bg="cyan.2">
-      <Title order={1} color="blue">
-        Donate
-      </Title>
+      <Card withBorder shadow="xs" p="xl" bg="cyan.2">
+        <Title order={1} color="blue">
+          Donate
+        </Title>
 
-      <form>
-        <Stack spacing={"xs"}>
-          <Input.Wrapper>
-            <Input.Label>First Name</Input.Label>
-            <Input />
-            <Input.Error>{/* Error goes here */}</Input.Error>
-          </Input.Wrapper>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Stack spacing={"xs"}>
+            <Input.Wrapper>
+              <Input.Label>First Name</Input.Label>
+              <Input {...register("firstName")} />
+              <Input.Error>{errors.firstName?.message}</Input.Error>
+            </Input.Wrapper>
 
-          <Input.Wrapper>
-            <Input.Label>Last Name</Input.Label>
-            <Input />
-            <Input.Error>{/* Error goes here */}</Input.Error>
-          </Input.Wrapper>
+            <Input.Wrapper>
+              <Input.Label>Last Name</Input.Label>
+              <Input {...register("lastName")} />
+              <Input.Error>{errors.lastName?.message}</Input.Error>
+            </Input.Wrapper>
 
-          <Input.Wrapper>
-            <Input.Label>Email</Input.Label>
-            <Input />
-            <Input.Error>{/* Error goes here */}</Input.Error>
-          </Input.Wrapper>
+            <Input.Wrapper>
+              <Input.Label>Email</Input.Label>
+              <Input {...register("email")} />
+              <Input.Error>{errors.email?.message}</Input.Error>
+            </Input.Wrapper>
 
-          <Input.Wrapper>
-            <Input.Label>Donation Amount</Input.Label>
-            <Input />
-            <Input.Error>{/* Error goes here */}</Input.Error>
-          </Input.Wrapper>
-          <Button>Submit</Button>
-        </Stack>
-      </form>
-    </Card>
+            <Input.Wrapper>
+              <Input.Label>Donation Amount</Input.Label>
+              <Input {...register("amount")} />
+              <Input.Error>{errors.amount?.message}</Input.Error>
+            </Input.Wrapper>
+            <Button type="submit" disabled={isSubmitting || !isValid}>
+              Submit
+            </Button>
+          </Stack>
+        </form>
+      </Card>
     </div>
   );
 }

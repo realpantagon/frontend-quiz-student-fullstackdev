@@ -5,7 +5,7 @@ const userSchema = z.object({
   firstName: z.string().min(1, { message: "Missing firstname" }),
   lastName: z.string().min(1, { message: "Missing lastname" }),
   email: z.string().email({ message: "Invalid email" }),
-  amount: z.string().min(0, { message: "Invalid amount, must be greater than or equal to 0" }),
+  amount: z.number().min(1, { message: "Invalid amount, must be greater than or equal to 0" }),
 });
 
 
