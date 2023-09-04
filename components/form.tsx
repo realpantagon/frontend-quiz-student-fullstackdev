@@ -1,74 +1,30 @@
-// import { API_URL } from "@/utils/api";
-import { Input, Button, Card, Title, Stack } from "@mantine/core";
-import { FC } from "react"; 
+import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ErrorMessage } from "@hookform/error-message";
-import { formSchema } from "@/utils/types";
-import axios from "axios";
-import DonationList from "@/utils/displayData";
-import { type Donation } from "@/utils/types";
-import { URL_DATA } from "@/utils";
-import useStore from "@/utils/store";
-import * as z from "zod";
-
-
-// const [ fetchUsers] = useStore((state) => [
-//   state.fetchUsers
-// ]);
-
-// const rhf = useForm<Donation>({
-//   resolver: zodResolver(formSchema),
-//   mode: "onTouched", 
-// });
-
-// const { register, handleSubmit, watch, reset, setValue, formState } = rhf;
-// const { errors, isSubmitting, isValid } = formState;
-
-// async function sendData(data: Donation) {
-//   try {
-//     const res = await axios.post(URL_DATA, data);
-//     fetchUsers();
-//     reset();
-//   } catch (err) {
-//     console.log(err);
-//   }
-// }
-
-const {
-  register,
-  handleSubmit,
-  formState: { errors, isSubmitting, isValid },
-} = useForm<Donation>({
-  resolver: zodResolver(formSchema),
-  mode: "onTouched",
-});
-
-
-// const onSubmit = async (data) => {
-//   try {
-//     // You can validate the form data against the schema here if needed
-//     const validatedData = formSchema.parse(data);
-//     // Perform your Axios request or other actions
-//   } catch (err) {
-//     console.error(err);
-//   }
-// };
-
-const onSubmit = async (data: Donation) => {
-  try {
-    // You can validate the form data against the schema here if needed
-    const validatedData = formSchema.parse(data);
-    // Perform your Axios request or other actions
-  } catch (err) {
-    console.error(err);
-  }
-};
+import { Input, Button, Card, Title, Stack } from "@mantine/core";
+import { formSchema } from "@/utils/types"; // Make sure this import is correct
+import { Donation } from "@/utils/types"; // Import your Donation type
 
 export default function Form() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting, isValid },
+  } = useForm<Donation>({
+    resolver: zodResolver(formSchema),
+    mode: "onTouched",
+  });
 
+  const onSubmit = async (data: Donation) => {
+    try {
+      // You can validate the form data against the schema here if needed
+      const validatedData = formSchema.parse(data);
+      // Perform your Axios request or other actions
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-  
   return (
     <div id="form">
       <Card withBorder shadow="xs" p="xl" bg="cyan.2">
